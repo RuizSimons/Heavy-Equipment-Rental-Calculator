@@ -87,7 +87,8 @@ with left_col:
     
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.4, marker_colors=['#FFC107', '#212121', '#757575', '#4CAF50'])])
     fig.update_layout(margin=dict(t=0, b=0, l=0, r=0))
-    st.plotly_chart(fig, use_container_width=True)
+    # Fixed deprecated use_container_width
+    st.plotly_chart(fig, width="stretch")
 
 with right_col:
     st.write("### Cumulative Cash Flow (Contract Life)")
@@ -99,7 +100,8 @@ with right_col:
     fig2.add_trace(go.Scatter(x=months, y=revenue, name='Gross Revenue', line=dict(color='#4CAF50', width=4)))
     fig2.add_trace(go.Scatter(x=months, y=costs, name='Total Costs', line=dict(color='#F44336', width=2, dash='dash')))
     fig2.update_layout(xaxis_title="Month", yaxis_title="USD ($)", margin=dict(t=20, b=20, l=0, r=0))
-    st.plotly_chart(fig2, use_container_width=True)
+    # Fixed deprecated use_container_width
+    st.plotly_chart(fig2, width="stretch")
 
 # Bottom Section: Summary Table
 st.write("### 📊 Detailed Financial Summary")
@@ -110,7 +112,8 @@ data = {
         "Base Hours Included", "Profit Margin Applied"
     ],
     "Value": [
-        f"${landed_cost:,.2d}", f"${total_residual:,.2d}", f"${monthly_depreciation:,.2f}",
+        # Fixed ValueError by changing :,.2d to :,.2f
+        f"${landed_cost:,.2f}", f"${total_residual:,.2f}", f"${monthly_depreciation:,.2f}",
         f"${monthly_interest:,.2f}", f"${monthly_op_cost:,.2f}",
         f"{base_hours_monthly} hrs", f"{margin_pct}%"
     ]
